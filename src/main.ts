@@ -20,8 +20,19 @@ async function bootstrap() {
   app.connectMicroservice({
     transport: Transport.RMQ,
     options: {
-      urls: ['amqp://guest:guest@localhost:5672/cars-import'],
+      urls: ['amqp://guest:guest@localhost:5672/cars-import-export'],
       queue: 'cars-import',
+      queueOptions: {
+        durable: false,
+      },
+    },
+  });
+
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: ['amqp://guest:guest@localhost:5672/cars-import-export'],
+      queue: 'cars-export',
       queueOptions: {
         durable: false,
       },
